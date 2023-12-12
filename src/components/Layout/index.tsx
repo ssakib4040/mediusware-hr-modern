@@ -133,7 +133,7 @@ export default function Layout() {
 
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content lg:ml-[320px] px-3 dev">
+        <div className="drawer-content lg:ml-[320px] px-3">
           {/* <!-- Page content here --> */}
           {/* <label
             htmlFor="my-drawer-2"
