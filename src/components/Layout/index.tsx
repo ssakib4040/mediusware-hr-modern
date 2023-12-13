@@ -2,18 +2,18 @@ import { Link, Outlet } from "react-router-dom";
 
 import Header from "../Header/Header";
 
-interface sidebarContentInterface{
-  name: string,
-  path: string,
-  content: contentInterface[]
+interface sidebarContentInterface {
+  name: string;
+  path: string;
+  content: contentInterface[];
 }
 
-interface contentInterface{
-  name: string,
-  path: string,
-  secondaryPath?: string
+interface contentInterface {
+  name: string;
+  path: string;
+  secondaryPath?: string;
+  changePath?: string;
 }
-
 
 export default function Layout() {
   const sidebarContent: sidebarContentInterface[] = [
@@ -25,6 +25,7 @@ export default function Layout() {
           name: "Credentials",
           path: "/credentials",
           secondaryPath: "/manage-credentials",
+          changePath: "/change-credentials",
         },
       ],
     },
@@ -41,9 +42,10 @@ export default function Layout() {
         {
           name: "Employee List",
           path: "/employee-list",
+          changePath: "/change-employee-list",
         },
         {
-          name: "Employee activities",
+          name: "Employee Activities",
           path: "/employee-activities",
         },
         {
@@ -53,6 +55,7 @@ export default function Layout() {
         {
           name: "Employees",
           path: "/employees",
+          changePath: "/change-employees",
         },
         {
           name: "FAQ List",
@@ -143,14 +146,15 @@ export default function Layout() {
           </label> */}
           <Outlet />
         </div>
-        <div className="drawer-side !fixed mt-[67px]">
+
+        <div className="drawer-side !fixed mt-[67px] bottom-0">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu !block overflow-y-auto h-screen p-4 w-80 bg-base-200 text-base-content">
+          <ul className="menu !block overflow-y-auto h-[calc(100vh-67px)] px-2 py-4 w-82 bg-base-200 text-base-content">
             {/* <!-- Sidebar content here --> */}
 
             {/* title for ul  */}
@@ -162,24 +166,55 @@ export default function Layout() {
                   </Link>
 
                   {item.content.map((subItem, index) => {
-                      return (
-                        // <li className="bg-[#676BE0] rounded-md">
-                        //   <a className="!text-white">{subItem.name}</a>
-                        // </li>
+                    return (
+                      <li className="flex flex-row justify-between" key={index}>
+                        <Link to={subItem.path}>{subItem.name}</Link>
 
-                        <li
-                          className="flex flex-row justify-between"
-                          key={index}
-                        >
-                          <Link to={subItem.path}>{subItem.name}</Link>
-
+                        <div className="hover:!bg-transparent px-0 py-0 gap-0">
                           {subItem.secondaryPath && (
-                            <Link to={subItem.secondaryPath}>+ Add</Link>
+                            <Link
+                              to={subItem.secondaryPath}
+                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-700 transition"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                className="bi bi-plus-lg"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                                />
+                              </svg>{" "}
+                              Add
+                            </Link>
                           )}
-                        </li>
-                      );
-                    }
-                  )}
+
+                          {subItem.changePath && (
+                            <Link
+                              to={subItem.changePath}
+                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-700 transition"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                className="bi bi-gear-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                              </svg>{" "}
+                              Change
+                            </Link>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </div>
               );
             })}
