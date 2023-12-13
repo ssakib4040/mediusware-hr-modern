@@ -154,9 +154,7 @@ export default function Layout() {
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu !block overflow-y-auto h-[calc(100vh-67px)] px-2 py-4 w-82 bg-base-200 text-base-content">
-            {/* <!-- Sidebar content here --> */}
-
+          <ul className="menu !block overflow-y-auto h-[calc(100vh-67px)] px-2 py-4 w-[320px] bg-base-200 text-base-content">
             {/* title for ul  */}
             {sidebarContent.map((item, index) => {
               return (
@@ -168,13 +166,13 @@ export default function Layout() {
                   {item.content.map((subItem, index) => {
                     return (
                       <li className="flex flex-row justify-between" key={index}>
-                        <Link to={subItem.path}>{subItem.name}</Link>
+                        <Link to={subItem.path} className="hover:!bg-gray-300 disable-active-focus">{subItem.name}</Link>
 
-                        <div className="hover:!bg-transparent px-0 py-0 gap-0">
+                        <div className="hover:!bg-transparent disable-active-focus px-0 py-0 gap-0">
                           {subItem.secondaryPath && (
                             <Link
                               to={subItem.secondaryPath}
-                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-700 transition"
+                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-300 transition"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +194,7 @@ export default function Layout() {
                           {subItem.changePath && (
                             <Link
                               to={subItem.changePath}
-                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-700 transition"
+                              className="flex items-center gap-1 rounded-lg px-3 py-2 hover:bg-gray-300 transition"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"

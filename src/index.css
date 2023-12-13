@@ -2,4 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.dev{border: 1px solid red}
+.disable-active-focus:focus,
+.disable-active-focus:active {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.dev {
+  border: 1px solid red;
+}
